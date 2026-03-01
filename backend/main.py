@@ -15,9 +15,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Pauli's X-Gate
 X_GATE = np.array([[0, 1], [1, 0]])
 
+# Hadamaard-Gate
 H_GATE = (1 / np.sqrt(2)) * np.array([[1, 1], [1, -1]])
+
+#Pauli's Y-Gate
+Y_GATE = np.array([[0, -1j], [1j, 0]])
 
 @app.get("/")
 def home():
@@ -34,4 +39,11 @@ def apply_h(data: QubitState):
     vec = np.array(data.state)
     new_state = np.dot(H_GATE, vec)
     return{"new_state": new_state.tolist()}
+
+@app.post("/apply-y")
+def apply_y(data: QubitState):
+    vec = np.array(data.state, dtype=complex)
+    res = np.dot(Y_GATE, vec)
+    serialized_state = [str(x) if x.imag != 0 else x.real for x in res]
+    return{"new_state": serialized_state}
 
