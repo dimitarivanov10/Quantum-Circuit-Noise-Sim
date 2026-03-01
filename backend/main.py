@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import numpy as np
 
 app = FastAPI()
+
+class QubitState(BaseModel):
+    state: list
 
 app.add_middleware(
     CORSMiddleware,
@@ -11,14 +15,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-X-GATE = np.array([[0, 1], [1, 0]])
+X_GATE = np.array([[0, 1], [1, 0]])
 
 @app.get("/")
 def home():
     return {"message": "Quantum Simulator API is running"}
 
 @app.post("/apply-x")
-def apply_x(state: list):
-    vec = np.array(state)
+def apply_x(data: QubitState):
+    vec = np.array(data)
     new_state = np.dot(X_GATE, vec)
     return {"new_state": new_state.tolist()}
