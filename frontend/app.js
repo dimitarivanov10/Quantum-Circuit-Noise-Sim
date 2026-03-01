@@ -29,7 +29,9 @@ async function applyGate(gateType) {
 }
 
 function updateUI() {
-  const formatted = currentState.map((num) => num.toFixed(3));
+  const formatted = currentState.map((num) => {
+    return typeof num === "number" ? num.toFixed(3) : num;
+  });
   document.getElementById("state-display").innerText =
     `[${formatted.join(", ")}]`;
 }
