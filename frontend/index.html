@@ -1,12 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quantum Circuit Simulator</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quantum Engine v1.0</h1>
+
+      <div class="state-box">
+        <span class="gate-label">Current Amplitude Vector</span>
+        <div id="state-display" class="state-val">[1, 0]</div>
+      </div>
+
+      <div class="controls">
+        <div class="gate-group">
+          <span class="gate-label">Pauli-X (Not)</span>
+          <button onclick="applyGate('x')">Apply X Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">Hadamard (Supeposition)</span>
+          <button onclick="applyGate('h')">Apply H Gate</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
