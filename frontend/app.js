@@ -27,3 +27,10 @@ async function applyGate(gateType) {
     alert("Backend error! Make sure your Python terminal is running!");
   }
 }
+
+function updateUI() {
+  const formatted = currentState.map((num) => num.toFixed(3));
+  document.getElementById("state-display").innerText =
+    `[${formatted.join(", ")}]`;
+}
+console.log("Quantum App.js loaded successfully!");
