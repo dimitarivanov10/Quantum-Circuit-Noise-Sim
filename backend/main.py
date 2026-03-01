@@ -36,9 +36,17 @@ def apply_x(data: QubitState):
 
 @app.post("/apply-h")
 def apply_h(data: QubitState):
-    vec = np.array(data.state)
-    new_state = np.dot(H_GATE, vec)
-    return{"new_state": new_state.tolist()}
+    try:
+        clean_list = [complex(x) if isinstance(x, str) else x for x in data.state]
+        vec = np.array(clean_list, dtype=complex)
+        
+        res = np.dot(H_GATE, vec)
+        
+        serialized = [str(x) if x.imag != 0 else x.real for x in res]
+        return {"new_state": serialized}
+    except Exception as e:
+        print(f"Math Error: {e}")
+        return {"error": str(e)}, 500
 
 @app.post("/apply-y")
 def apply_y(data: QubitState):
