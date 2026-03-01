@@ -23,6 +23,6 @@ def home():
 
 @app.post("/apply-x")
 def apply_x(data: QubitState):
-    vec = np.array(data)
+    vec = np.array(data.state)
     new_state = np.dot(X_GATE, vec)
     return {"new_state": new_state.tolist()}
