@@ -33,22 +33,21 @@ def serialize_state(vec):
 
 @app.post("/apply-x")
 def apply_x(data: QubitState):
-    vec = np.array(data.state)
+    vec = prepare_vector(data.state)
     new_state = np.dot(X_GATE, vec)
-    return {"new_state": new_state.tolist()}
+    return {"new_state": serialize_state(new_state)}
 
 @app.post("/apply-h")
 def apply_h(data: QubitState):
-    vec = np.array(data.state)
+    vec = prepare_vector(data.state)
     new_state = np.dot(H_GATE, vec)
-    return{"new_state": new_state.tolist()}
+    return {"new_state": serialize_state(new_state)}
 
 @app.post("/apply-y")
 def apply_y(data: QubitState):
     vec = np.array(data.state, dtype=complex)
     res = np.dot(Y_GATE, vec)
-    serialized_state = [str(x) if x.imag != 0 else x.real for x in res]
-    return{"new_state": serialized_state}
+    return {"new_state": serialize_state(res)}
 
 def prepare_vector(state_list):
     clean_list = [complex(x) if isinstance(x, str) else x for x in state_list]
