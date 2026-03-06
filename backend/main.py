@@ -28,6 +28,9 @@ Y_GATE = np.array([[0, -1j], [1j, 0]])
 def home():
     return {"message": "Quantum Simulator API is running"}
 
+def serialize_state(vec):
+    return [str(x) if x.imag != 0 else float(x.real) for x in vec]
+
 @app.post("/apply-x")
 def apply_x(data: QubitState):
     vec = np.array(data.state)
