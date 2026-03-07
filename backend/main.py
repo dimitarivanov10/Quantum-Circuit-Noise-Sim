@@ -42,39 +42,35 @@ def serialize_state(vec):
 
 @app.post("/apply-x")
 def apply_x(data: QubitState):
-    vec = prepare_vector(data.state)
-    new_state = np.dot(X_GATE, vec)
-    return {"new_state": serialize_state(new_state)}
+    return apply_gate(data, X_GATE)
 
 @app.post("/apply-h")
 def apply_h(data: QubitState):
-    vec = prepare_vector(data.state)
-    new_state = np.dot(H_GATE, vec)
-    return {"new_state": serialize_state(new_state)}
+    return apply_gate(data, H_GATE)
+
 
 @app.post("/apply-y")
 def apply_y(data: QubitState):
-    vec = prepare_vector(data.state)
-    res = np.dot(Y_GATE, vec)
-    return {"new_state": serialize_state(res)}
+    return apply_gate(data, Y_GATE)
 
 @app.post("/apply-z")
 def apply_z(data: QubitState):
-    vec = prepare_vector(data.state)
-    new_state = np.dot(Z_GATE, vec)
-    return {"new_state": serialize_state(new_state)}
+    return apply_gate(data, Z_GATE)
 
 @app.post("/apply-s")
 def apply_s(data: QubitState):
-    vec = prepare_vector(data.state)
-    new_state = np.dot(S_GATE, vec)
-    return {"new_state": serialize_state(new_state)}
+    return apply_gate(data, S_GATE)
 
 @app.post("/apply-t")
 def apply_t(data: QubitState):
+    return apply_gate(data, T_GATE)
+
+
+def apply_gate(data: QubitState, GATE):
     vec = prepare_vector(data.state)
-    new_state = np.dot(T_GATE, vec)
+    new_state = np.dot(GATE, vec)
     return {"new_state": serialize_state(new_state)}
+    
 
 def prepare_vector(state_list):
     clean_list = [complex(x) if isinstance(x, str) else x for x in state_list]
