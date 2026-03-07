@@ -32,8 +32,7 @@ h1 {
 
 /* State Vector Display */
 .state-box {
-  min-width: 300px;
-  width: fit-content;
+  width: 90%;
   max-width: 90vw;
   background: #0f172a;
   border: 1px dashed #22d3ee;
@@ -42,6 +41,9 @@ h1 {
   word-wrap: break-word;
   overflow-wrap: break-word;
   margin: 20px auto;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .state-val {
