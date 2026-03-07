@@ -24,6 +24,9 @@ H_GATE = (1 / np.sqrt(2)) * np.array([[1, 1], [1, -1]])
 #Pauli's Y-Gate
 Y_GATE = np.array([[0, -1j], [1j, 0]])
 
+#Pauli's Z-Gate
+Z_GATE = np.array([[1, 0], [0, -1]])
+
 @app.get("/")
 def home():
     return {"message": "Quantum Simulator API is running"}
@@ -45,9 +48,15 @@ def apply_h(data: QubitState):
 
 @app.post("/apply-y")
 def apply_y(data: QubitState):
-    vec = np.array(data.state, dtype=complex)
+    vec = prepare_vector(data.state)
     res = np.dot(Y_GATE, vec)
     return {"new_state": serialize_state(res)}
+
+@app.post("/apply-z")
+def apply_z(data: QubitState):
+    vec = prepare_vector(data.state)
+    new_state = np.dot(Z_GATE, vec)
+    return {"new_state": serialize_state(new_state)}
 
 def prepare_vector(state_list):
     clean_list = [complex(x) if isinstance(x, str) else x for x in state_list]
