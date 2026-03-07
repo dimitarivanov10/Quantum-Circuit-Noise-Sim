@@ -27,6 +27,12 @@ Y_GATE = np.array([[0, -1j], [1j, 0]])
 #Pauli's Z-Gate
 Z_GATE = np.array([[1, 0], [0, -1]])
 
+# S-Gate (90 degree rotation)
+S_GATE = np.array([[1, 0], [0, 1j]])
+
+# T-Gate (45 degree rotation)
+T_GATE = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
+
 @app.get("/")
 def home():
     return {"message": "Quantum Simulator API is running"}
@@ -56,6 +62,18 @@ def apply_y(data: QubitState):
 def apply_z(data: QubitState):
     vec = prepare_vector(data.state)
     new_state = np.dot(Z_GATE, vec)
+    return {"new_state": serialize_state(new_state)}
+
+@app.post("/apply-s")
+def apply_s(data: QubitState):
+    vec = prepare_vector(data.state)
+    new_state = np.dot(S_GATE, vec)
+    return {"new_state": serialize_state(new_state)}
+
+@app.post("/apply-t")
+def apply_t(data: QubitState):
+    vec = prepare_vector(data.state)
+    new_state = np.dot(T_GATE, vec)
     return {"new_state": serialize_state(new_state)}
 
 def prepare_vector(state_list):
