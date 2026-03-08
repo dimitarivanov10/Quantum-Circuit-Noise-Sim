@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from qiskit.visualization import plot_bloch_multivector
+import io
+import base64
+
 import numpy as np
 
 app = FastAPI()
@@ -33,6 +37,16 @@ S_GATE = np.array([[1, 0], [0, 1j]])
 # T-Gate (45 degree rotation)
 T_GATE = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
 
+def generate_bloch_sphere(vec):
+    fig = plot_bloch_multivector(vec)
+    
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+
+    img_str = base64.b64decode(buf.read()).decode("utf-8")
+    return img_str
+    
 @app.get("/")
 def home():
     return {"message": "Quantum Simulator API is running"}
@@ -69,7 +83,9 @@ def apply_t(data: QubitState):
 def apply_gate(data: QubitState, GATE):
     vec = prepare_vector(data.state)
     new_state = np.dot(GATE, vec)
-    return {"new_state": serialize_state(new_state)}
+    visual_data = generate_bloch_sphere(new_state)
+    return {"new_state": serialize_state(new_state),
+            "visualization": visual_data}
     
 
 def prepare_vector(state_list):
