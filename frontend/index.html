@@ -13,13 +13,10 @@
       <div class="state-box">
         <span class="gate-label">Current Amplitude Vector</span>
         <div id="state-display" class="state-val">[1.000, 0.000]</div>
+        <button onclick="resetCircuit()" class="btn-reset-mini">Reset amplitude vector</button>
       </div>
 
       <div class="controls">
-        <div class="gate-group">
-          <span class="gate-label">System</span>
-          <button onclick="resetCircuit()">Reset amplitude vector</button>
-        </div>
         <div class="gate-group">
           <span class="gate-label">Pauli-X (Not)</span>
           <button onclick="applyGate('x')">Apply X Gate</button>
