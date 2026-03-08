@@ -21,6 +21,11 @@ async function applyGate(gateType) {
     const data = await response.json();
 
     currentState = data.new_state;
+    if (data.visualization) {
+      document.getElementById("bloch-sphere").src =
+        `data:image/png;base64,${data.visualization}`;
+    }
+
     updateUI();
   } catch (error) {
     console.error("Could not connect to the backend:", error);
