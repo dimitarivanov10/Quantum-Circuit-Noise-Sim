@@ -37,6 +37,11 @@ async function applyGate(gateType) {
 }
 
 function resetCircuit() {
+  const sphereImgEl = document.getElementById("bloch-sphere");
+  const visualPlaceholderEl = document.getElementById("visual-placeholder");
+
+  sphereImgEl.style.display = "none";
+  visualPlaceholderEl.style.display = "block";
   currentState = [1, 0];
   updateUI();
   console.log("Amplitude vector reset to [1.000, 0.000]");
