@@ -30,14 +30,13 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* State Vector Display */
 .state-box {
   position: relative;
-  width: 100%; /* Fits the container */
+  width: 100%; 
   background: #0f172a;
   border: 1px dashed #22d3ee;
   border-radius: 8px;
-  padding: 10px 15px 35px 15px; /* Less top padding, more bottom for reset btn */
+  padding: 10px 15px 35px 15px;
   margin: 20px auto;
   box-sizing: border-box;
   overflow-wrap: anywhere;
@@ -47,15 +46,15 @@ h1 {
 }
 
 .state-box .gate-label {
-  font-size: 1.0rem; /* Smaller */
+  font-size: 1.0rem; 
   opacity: 0.7;
-  margin-bottom: 5px; /* Brings numbers closer to the top */
+  margin-bottom: 5px; 
 }
 
 .state-val {
   color: #22d3ee;
   font-family: "Courier New", Courier, monospace;
-  font-size: 1.8rem; /* Significantly bigger */
+  font-size: 1.8rem; 
   font-weight: bold;
   text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
   line-height: 1.2;
