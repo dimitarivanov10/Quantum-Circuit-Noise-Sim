@@ -7,39 +7,55 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Quantum Engine v1.0</h1>
+    <div class="main-layout">
+      <div class="container">
+        <h1>Quantum Engine v1.0</h1>
 
-      <div class="state-box">
-        <span class="gate-label">Current Amplitude Vector</span>
-        <div id="state-display" class="state-val">[1.000, 0.000]</div>
-        <button onclick="resetCircuit()" class="btn-reset-mini">Reset amplitude vector</button>
+        <div class="state-box">
+          <span class="gate-label">Current Amplitude Vector</span>
+          <div id="state-display" class="state-val">[1.000, 0.000]</div>
+          <button onclick="resetCircuit()" class="btn-reset-mini">
+            Reset amplitude vector
+          </button>
+        </div>
+
+        <div class="controls">
+          <div class="gate-group">
+            <span class="gate-label">Pauli-X (Not)</span>
+            <button onclick="applyGate('x')">Apply X Gate</button>
+          </div>
+          <div class="gate-group">
+            <span class="gate-label">Hadamard (Supeposition)</span>
+            <button onclick="applyGate('h')">Apply H Gate</button>
+          </div>
+          <div class="gate-group">
+            <span class="gate-label">Pauli-Y</span>
+            <button onclick="applyGate('y')">Apply Y Gate</button>
+          </div>
+          <div class="gate-group">
+            <span class="gate-label">Pauli-Z</span>
+            <button onclick="applyGate('z')">Apply Z Gate</button>
+          </div>
+          <div class="gate-group">
+            <span class="gate-label">S-Gate (90 degree rotation)</span>
+            <button onclick="applyGate('s')">Apply S Gate</button>
+          </div>
+          <div class="gate-group">
+            <span class="gate-label">T-Gate (45 degree rotation)</span>
+            <button onclick="applyGate('t')">Apply T Gate</button>
+          </div>
+        </div>
       </div>
-
-      <div class="controls">
-        <div class="gate-group">
-          <span class="gate-label">Pauli-X (Not)</span>
-          <button onclick="applyGate('x')">Apply X Gate</button>
-        </div>
-        <div class="gate-group">
-          <span class="gate-label">Hadamard (Supeposition)</span>
-          <button onclick="applyGate('h')">Apply H Gate</button>
-        </div>
-        <div class="gate-group">
-          <span class="gate-label">Pauli-Y</span>
-          <button onclick="applyGate('y')">Apply Y Gate</button>
-        </div>
-        <div class="gate-group">
-          <span class="gate-label">Pauli-Z</span>
-          <button onclick="applyGate('z')">Apply Z Gate</button>
-        </div>
-        <div class="gate-group">
-          <span class="gate-label">S-Gate (90 degree rotation)</span>
-          <button onclick="applyGate('s')">Apply S Gate</button>
-        </div>
-        <div class="gate-group">
-          <span class="gate-label">T-Gate (45 degree rotation)</span>
-          <button onclick="applyGate('t')">Apply T Gate</button>
+      <div class="visualizer-container">
+        <span class="gate-label">Bloch Sphere Projection</span>
+        <div id="canvas-wrapper">
+          <img
+            id="bloch-sphere"
+            src=""
+            alt="Apply a gate to see the Bloch Sphere"
+            style="display: none"
+          />
+          <div id="visual-placeholder">Initialize gate to project state</div>
         </div>
       </div>
     </div>
