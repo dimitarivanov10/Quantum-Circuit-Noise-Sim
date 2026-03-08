@@ -41,7 +41,6 @@ T_GATE = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
 def generate_bloch_sphere(vec):
     import matplotlib.pyplot as plt
     
-    # 1. Set global dark theme for the text/axes
     plt.rcParams.update({
         "text.color": "#f8fafc",
         "axes.labelcolor": "#f8fafc",
@@ -51,23 +50,17 @@ def generate_bloch_sphere(vec):
         "axes.facecolor": "#1e293b"
     })
 
-    # 2. Call the function WITHOUT 'style'
-    # We pass the vector color directly using 'color'
     fig = plot_bloch_multivector(vec, font_size=14)
     
-    # 3. Manually style the axes and panes
     fig.patch.set_facecolor('#1e293b')
     for ax in fig.axes:
         ax.set_facecolor('#1e293b')
-        # Make the 3D grid panes transparent
         ax.xaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
         ax.yaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
         ax.zaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
-        # Hide the grid lines for a cleaner "hologram" look
         ax.grid(False)
 
     buf = io.BytesIO()
-    # Save with the dark background
     fig.savefig(buf, format="png", facecolor='#1e293b', bbox_inches='tight')
     buf.seek(0)
 
