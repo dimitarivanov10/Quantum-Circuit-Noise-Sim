@@ -28,6 +28,12 @@ async function applyGate(gateType) {
   }
 }
 
+function resetCircuit() {
+  currentState = [1, 0];
+  updateUI();
+  console.log("Amplitude vector reset to [1.000, 0.000]");
+}
+
 function updateUI() {
   const formatted = currentState.map((num) => {
     return typeof num === "number" ? num.toFixed(3) : num;
