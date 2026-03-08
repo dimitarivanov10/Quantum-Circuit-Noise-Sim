@@ -45,7 +45,9 @@ def generate_bloch_sphere(vec):
     fig.savefig(buf, format="png")
     buf.seek(0)
 
-    img_str = base64.b64decode(buf.read()).decode("utf-8")
+    img_str = base64.b64encode(buf.read()).decode("utf-8")
+    import matplotlib.pyplot as plt
+    plt.close(fig)
     return img_str
     
 @app.get("/")
