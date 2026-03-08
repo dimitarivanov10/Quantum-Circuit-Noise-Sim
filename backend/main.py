@@ -4,7 +4,8 @@ from pydantic import BaseModel
 from qiskit.visualization import plot_bloch_multivector
 import io
 import base64
-
+import matplotlib
+matplotlib.use("Agg")
 import numpy as np
 
 app = FastAPI()
