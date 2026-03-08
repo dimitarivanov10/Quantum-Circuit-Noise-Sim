@@ -21,12 +21,15 @@ async function applyGate(gateType) {
     const data = await response.json();
 
     currentState = data.new_state;
-    if (data.visualization) {
-      document.getElementById("bloch-sphere").src =
-        `data:image/png;base64,${data.visualization}`;
-    }
-
     updateUI();
+    if (data.visualization) {
+      const sphereImgEl = document.getElementById("bloch-sphere");
+      const visualPlaceholderEl = document.getElementById("visual-placeholder");
+
+      sphereImgEl.src = `data:image/png;base64,${data.visualization}`;
+      sphereImgEl.style.display = "block";
+      visualPlaceholderEl.style.display = "none";
+    }
   } catch (error) {
     console.error("Could not connect to the backend:", error);
     alert("Backend error! Make sure your Python terminal is running!");
