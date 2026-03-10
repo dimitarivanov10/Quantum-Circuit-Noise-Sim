@@ -13,8 +13,8 @@ body {
 .main-layout {
   display: flex;
   flex-direction: row;
-  gap: 30px; /* The "breathing room" you wanted */
-  align-items: stretch; /* Makes them both the same height if content allows */
+  gap: 30px; 
+  align-items: flex-start;
   max-width: 1200px;
   padding: 20px;
 }
@@ -133,38 +133,36 @@ button:active {
 }
 
 .btn-reset-mini:hover {
-  color: #22d3ee; /* Glow effect on hover */
-  background: transparent; /* Ensure background stays clear */
-  transform: none; /* Disable the bounce animation for this specific button */
+  color: #22d3ee; 
+  background: transparent; 
+  transform: none; 
   box-shadow: none;
 }
 
 /* visualizer container */
 .visualizer-container {
-  background: #1e293b; /* Same as .container */
-  border-radius: 16px; /* Same as .container */
-  padding: 40px; /* Same as .container */
-  width: 450px; /* Specific width for the sphere side */
+  background: #1e293b; 
+  border-radius: 16px; 
+  padding: 25px 30px; 
+  width: 380px; 
   text-align: center;
-  box-shadow:           /* Same as .container */
+  box-shadow:          
     0 20px 25px -5px rgba(0, 0, 0, 0.3),
     0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  border: 1px solid #334155; /* Same as .container */
+  border: 1px solid #334155; 
   display: flex;
   flex-direction: column;
 }
 
-/* 3. Make the Title Bigger, Bolded, and Centered */
 .visualizer-container .gate-label {
-  font-size: 1.2rem; /* Bigger */
-  font-weight: bold; /* Bolded */
-  color: #f1f5f9; /* Brighter white like the H1 */
+  font-size: 1.2rem; 
+  font-weight: bold; 
+  color: #f1f5f9; 
   margin-bottom: 25px;
-  text-transform: none; /* Removing the tiny-label look */
+  text-transform: none; 
   letter-spacing: 0.5px;
 }
 
-/* Ensure the wrapper centers the content */
 #canvas-wrapper {
   flex: 1;
   display: flex;
@@ -175,8 +173,6 @@ button:active {
 
 #bloch-sphere {
   width: 100%;
-  max-width: 380px;
-  border-radius: 8px;
-  /* Optional: keeps the sphere looking integrated */
-  mix-blend-mode: screen;
+  max-width: 320px;
+  margin: 0 auto;
 }
