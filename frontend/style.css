@@ -10,9 +10,14 @@ body {
   margin: 0;
 }
 
-.main-layout{
+.main-layout {
   display: flex;
-} 
+  flex-direction: row;
+  gap: 30px; /* The "breathing room" you wanted */
+  align-items: stretch; /* Makes them both the same height if content allows */
+  max-width: 1200px;
+  padding: 20px;
+}
 
 /* The Main Container */
 .container {
@@ -36,7 +41,7 @@ h1 {
 
 .state-box {
   position: relative;
-  width: 100%; 
+  width: 100%;
   background: #0f172a;
   border: 1px dashed #22d3ee;
   border-radius: 8px;
@@ -50,15 +55,15 @@ h1 {
 }
 
 .state-box .gate-label {
-  font-size: 1.0rem; 
+  font-size: 1rem;
   opacity: 0.7;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 }
 
 .state-val {
   color: #22d3ee;
   font-family: "Courier New", Courier, monospace;
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
   line-height: 1.2;
@@ -132,4 +137,46 @@ button:active {
   background: transparent; /* Ensure background stays clear */
   transform: none; /* Disable the bounce animation for this specific button */
   box-shadow: none;
+}
+
+/* visualizer container */
+.visualizer-container {
+  background: #1e293b; /* Same as .container */
+  border-radius: 16px; /* Same as .container */
+  padding: 40px; /* Same as .container */
+  width: 450px; /* Specific width for the sphere side */
+  text-align: center;
+  box-shadow:           /* Same as .container */
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #334155; /* Same as .container */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Make the Title Bigger, Bolded, and Centered */
+.visualizer-container .gate-label {
+  font-size: 1.2rem; /* Bigger */
+  font-weight: bold; /* Bolded */
+  color: #f1f5f9; /* Brighter white like the H1 */
+  margin-bottom: 25px;
+  text-transform: none; /* Removing the tiny-label look */
+  letter-spacing: 0.5px;
+}
+
+/* Ensure the wrapper centers the content */
+#canvas-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#bloch-sphere {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 8px;
+  /* Optional: keeps the sphere looking integrated */
+  mix-blend-mode: screen;
 }
