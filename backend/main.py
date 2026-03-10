@@ -40,28 +40,26 @@ T_GATE = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
 
 def generate_bloch_sphere(vec):
     import matplotlib.pyplot as plt
-    
+
     plt.rcParams.update({
         "text.color": "#f8fafc",
         "axes.labelcolor": "#f8fafc",
         "xtick.color": "#f8fafc",
         "ytick.color": "#f8fafc",
-        "figure.facecolor": "#1e293b",
-        "axes.facecolor": "#1e293b"
     })
 
     fig = plot_bloch_multivector(vec, font_size=14)
     
-    fig.patch.set_facecolor('#1e293b')
+    fig.patch.set_alpha(0.0)
     for ax in fig.axes:
-        ax.set_facecolor('#1e293b')
+        ax.set_facecolor((0, 0, 0, 0))
         ax.xaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
         ax.yaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
         ax.zaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
         ax.grid(False)
 
     buf = io.BytesIO()
-    fig.savefig(buf, format="png", facecolor='#1e293b', bbox_inches='tight')
+    fig.savefig(buf, format="png", transparent=True , bbox_inches='tight', pad_inches=0.1)
     buf.seek(0)
 
     img_str = base64.b64encode(buf.read()).decode("utf-8")
