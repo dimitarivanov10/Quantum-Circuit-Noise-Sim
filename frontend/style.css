@@ -139,6 +139,31 @@ button:active {
   box-shadow: none;
 }
 
+.btn-measure-mini {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: auto;
+  cursor: pointer;
+
+  font-size: 0.7rem;
+  color: #b89496;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: normal;
+  transition: color 0.2s ease;
+}
+.btn-measure-mini:hover {
+  color: #ee3d22; 
+  background: transparent; 
+  transform: none; 
+  box-shadow: none;
+}
+
 /* visualizer container */
 .visualizer-container {
   background: #1e293b; 

@@ -14,9 +14,12 @@
         <div class="state-box">
           <span class="gate-label">Current Amplitude Vector</span>
           <div id="state-display" class="state-val">[1.000, 0.000]</div>
-          <button onclick="resetCircuit()" class="btn-reset-mini">
-            Reset amplitude vector
-          </button>
+          <div>
+            <button onclick="applyGate('measure')" class="btn-measure-mini">Measure</button>
+            <button onclick="resetCircuit()" class="btn-reset-mini">
+              Reset amplitude vector
+            </button>
+          </div>
         </div>
 
         <div class="controls">
