@@ -231,12 +231,46 @@ button:active {
 }
 
 #log-list {
-  max-height: 80px;
+  max-height: 250px;
   overflow-y: auto;
   font-family: "Courier New", monospace;
   font-size: 0.8rem;
   color: #94a3b8;
   text-align: left;
+  padding-right: 5px;
+}
+
+#log-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+#log-list::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+#log-list::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+#log-list::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee; /* Glows cyan when you interact with it */
+}
+.log-entry {
+  padding: 6px 0;
+  border-bottom: 1px solid #334155;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .log-0 {
