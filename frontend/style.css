@@ -281,3 +281,16 @@ button:active {
   color: #f87171;
   font-weight: bold;
 }
+
+input[type="range"] {
+  accent-color: #22d3ee;
+  cursor: pointer;
+  background: #0f172a;
+  height: 6px;
+  border-radius: 5px;
+}
+
+#noise-display {
+  color: #22d3ee;
+  font-weight: bold;
+}
