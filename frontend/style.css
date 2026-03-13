@@ -231,7 +231,7 @@ button:active {
 }
 
 #log-list {
-  max-height: 250px;
+  max-height: 215px;
   overflow-y: auto;
   font-family: "Courier New", monospace;
   font-size: 0.8rem;
