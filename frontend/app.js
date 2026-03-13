@@ -30,10 +30,28 @@ async function applyGate(gateType) {
       sphereImgEl.style.display = "block";
       visualPlaceholderEl.style.display = "none";
     }
+
+    if (gateType === "measure") {
+      const stateDisplayDivEl = document.getElementById("state-display");
+      stateDisplayDivEl.classList.add("measuring");
+
+      addToLog(data.result);
+      setTimeout(() => display.classList.remove("measuring"), 500);
+    }
   } catch (error) {
     console.error("Could not connect to the backend:", error);
     alert("Backend error! Make sure your Python terminal is running!");
   }
+}
+
+function addToLog(result) {
+  const logListEl = document.getElementById("log-list");
+  if (!logListEl) return;
+
+  const entryDivEl = document.createElement("div");
+  entryDivEl.className = "log-entry";
+  entryDivEl.innerHTML = `Measured: <span class="log-${result}">|${result}⟩</span>`;
+  logListEl.prepend(entryDivEl);
 }
 
 function resetCircuit() {
