@@ -7,6 +7,7 @@ import base64
 import matplotlib
 matplotlib.use("Agg")
 import numpy as np
+import random
 
 app = FastAPI()
 
@@ -98,7 +99,26 @@ def apply_s(data: QubitState):
 def apply_t(data: QubitState):
     return apply_gate(data, T_GATE)
 
+@app.post("/apply-measure")
+def apply_measure(data:QubitState):
+    vec = prepare_vector(data.state)
 
+    prob_0 = np.abs(vec[0])**2
+    prob_1 = np.abs(vec[1])**2
+
+    outcome = random.choices([0, 1], weights=[prob_0, prob_1])[0]
+
+    if outcome == 0:
+        new_state = np.array([1, 0], dtype=complex)
+    else:
+        new_state = np.array([0, 1], dtype=complex)
+
+    visual_data = generate_bloch_sphere(new_state)
+    return {
+        "new_state": serialize_state(new_state),
+        "visualization": visual_data,
+        "result": outcome
+    }
 def apply_gate(data: QubitState, GATE):
     vec = prepare_vector(data.state)
     new_state = np.dot(GATE, vec)
