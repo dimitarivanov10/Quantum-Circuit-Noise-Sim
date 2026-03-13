@@ -57,12 +57,16 @@ function addToLog(result) {
 function resetCircuit() {
   const sphereImgEl = document.getElementById("bloch-sphere");
   const visualPlaceholderEl = document.getElementById("visual-placeholder");
+  const logListEl = document.getElementById("log-list");
 
   sphereImgEl.style.display = "none";
   visualPlaceholderEl.style.display = "block";
   currentState = [1, 0];
   updateUI();
-  console.log("Amplitude vector reset to [1.000, 0.000]");
+  if (logListEl) {
+    logListEl.innerHTML = "";
+  }
+  console.log("System reboot: Vector and logs cleared");
 }
 
 function updateUI() {
