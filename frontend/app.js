@@ -36,7 +36,7 @@ async function applyGate(gateType) {
       stateDisplayDivEl.classList.add("measuring");
 
       addToLog(data.result);
-      setTimeout(() => display.classList.remove("measuring"), 500);
+      setTimeout(() => stateDisplayDivEl.classList.remove("measuring"), 500);
     }
   } catch (error) {
     console.error("Could not connect to the backend:", error);

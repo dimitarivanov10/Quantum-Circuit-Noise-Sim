@@ -13,7 +13,7 @@ body {
 .main-layout {
   display: flex;
   flex-direction: row;
-  gap: 30px; 
+  gap: 30px;
   align-items: flex-start;
   max-width: 1200px;
   padding: 20px;
@@ -133,9 +133,9 @@ button:active {
 }
 
 .btn-reset-mini:hover {
-  color: #22d3ee; 
-  background: transparent; 
-  transform: none; 
+  color: #22d3ee;
+  background: transparent;
+  transform: none;
   box-shadow: none;
 }
 
@@ -158,33 +158,33 @@ button:active {
   transition: color 0.2s ease;
 }
 .btn-measure-mini:hover {
-  color: #ee3d22; 
-  background: transparent; 
-  transform: none; 
+  color: #ee3d22;
+  background: transparent;
+  transform: none;
   box-shadow: none;
 }
 
 /* visualizer container */
 .visualizer-container {
-  background: #1e293b; 
-  border-radius: 16px; 
-  padding: 25px 30px; 
-  width: 380px; 
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 25px 30px;
+  width: 380px;
   text-align: center;
-  box-shadow:          
+  box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.3),
     0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  border: 1px solid #334155; 
+  border: 1px solid #334155;
   display: flex;
   flex-direction: column;
 }
 
 .visualizer-container .gate-label {
-  font-size: 1.2rem; 
-  font-weight: bold; 
-  color: #f1f5f9; 
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f1f5f9;
   margin-bottom: 25px;
-  text-transform: none; 
+  text-transform: none;
   letter-spacing: 0.5px;
 }
 
@@ -200,4 +200,50 @@ button:active {
   width: 100%;
   max-width: 320px;
   margin: 0 auto;
+}
+
+@keyframes collapse-glow {
+  0% {
+    text-shadow: 0 0 10px #22d3ee;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 40px #f87171;
+    color: #f87171;
+    transform: scale(1.05);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+    transform: scale(1);
+  }
+}
+
+.measuring {
+  animation: collapse-glow 0.5s ease-out;
+}
+
+/* History Log (inside visualizer-container) */
+.history-log {
+  margin-top: 25px;
+  border-top: 1px solid #334155;
+  padding-top: 15px;
+  width: 100%;
+}
+
+#log-list {
+  max-height: 80px;
+  overflow-y: auto;
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: left;
+}
+
+.log-0 {
+  color: #22d3ee;
+  font-weight: bold;
+}
+.log-1 {
+  color: #f87171;
+  font-weight: bold;
 }
