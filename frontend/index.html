@@ -49,6 +49,20 @@
             <span class="gate-label">T-Gate (45 degree rotation)</span>
             <button onclick="applyGate('t')">Apply T Gate</button>
           </div>
+          <div class="gate-group">
+            <span class="gate-label"
+              >Noise Level: <span id="noise-display">0</span>%</span
+            >
+            <input
+              type="range"
+              id="noise-slider"
+              min="0"
+              max="20"
+              value="0"
+              step="1"
+              style="width: 80%"
+            />
+          </div>
         </div>
       </div>
       <div class="visualizer-container">
