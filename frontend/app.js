@@ -2,15 +2,15 @@ let currentState = [1, 0];
 const noiseSliderDivEl = document.getElementById("noise-slider");
 const noiseDisplayDivEl = document.getElementById("noise-display");
 
-noiseSlider.oninput = function () {
-  noiseDisplay.innerText = this.value;
+noiseSliderDivEl.oninput = function () {
+  noiseDisplayDivEl.innerText = this.value;
 };
 
 async function applyGate(gateType) {
   console.log(`Sending request to apply ${gateType} gate...`);
-  
+
   const url = `http://127.0.0.1:8000/apply-${gateType}`;
-  const noiseLevel = noiseSlider.value / 100;
+  const noiseLevel = noiseSliderDivEl.value / 100;
 
   try {
     const response = await fetch(url, {
