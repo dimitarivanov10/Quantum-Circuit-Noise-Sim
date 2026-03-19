@@ -79,13 +79,15 @@
     <div class="visualizer-container">
       <span class="gate-label">Bloch Sphere Projection</span>
       <div id="canvas-wrapper">
-        <img id="bloch-sphere" src="" alt="Apply a gate to see the Bloch Sphere" style="display: none" />
-        <div id="visual-placeholder">Initialize gate to project state</div>
-      </div>
-      <div class="history-log">
-        <span class="gate-label">Measurement History</span>
-        <div id="log-list"></div>
-      </div>
+    <div class="sphere-box">
+        <span class="gate-label">Qubit 1</span>
+        <img id="bloch-sphere-1" class="quantum-sphere" src="" style="display: none" />
+    </div>
+    <div class="sphere-box">
+        <span class="gate-label">Qubit 0</span>
+        <img id="bloch-sphere-0" class="quantum-sphere" src="" style="display: none" />
+    </div>
+    <div id="visual-placeholder">Initialize gate to project state</div>
     </div>
   </div>
   <script src="./app.js"></script>
