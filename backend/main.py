@@ -13,6 +13,7 @@ app = FastAPI()
 
 class QubitState(BaseModel):
     state: list
+    noise: float = 0.0
 
 app.add_middleware(
     CORSMiddleware,
@@ -102,6 +103,7 @@ def apply_t(data: QubitState):
 @app.post("/apply-measure")
 def apply_measure(data:QubitState):
     vec = prepare_vector(data.state)
+    vec = apply_noise(vec, data.noise)
 
     prob_0 = np.abs(vec[0])**2
     prob_1 = np.abs(vec[1])**2
@@ -122,6 +124,7 @@ def apply_measure(data:QubitState):
 def apply_gate(data: QubitState, GATE):
     vec = prepare_vector(data.state)
     new_state = np.dot(GATE, vec)
+    new_state = apply_noise(new_state, data.noise)
     visual_data = generate_bloch_sphere(new_state)
     return {"new_state": serialize_state(new_state),
             "visualization": visual_data}
@@ -130,3 +133,13 @@ def apply_gate(data: QubitState, GATE):
 def prepare_vector(state_list):
     clean_list = [complex(x) if isinstance(x, str) else x for x in state_list]
     return np.array(clean_list, dtype=complex)
+
+def apply_noise(state, noise_level):
+    if noise_level > 0:
+        perturbation = np.array([random.gauss(0, 1) + 1j*random.gauss(0, 1), 
+                                 random.gauss(0, 1) + 1j*random.gauss(0, 1)], dtype=complex)
+        perturbation /= np.linalg.norm(perturbation)
+        
+        state = (1 - noise_level) * state + noise_level * perturbation
+        state /= np.linalg.norm(state)
+    return state
