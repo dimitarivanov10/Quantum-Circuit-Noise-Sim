@@ -96,7 +96,7 @@ function updateUI() {
   const formatted = currentState.map((num) => {
     return typeof num === "number" ? num.toFixed(3) : num;
   });
-  document.getElementById("state-display").innerText =
-    `[${formatted.join(", ")}]`;
+  document.getElementById("state-display").innerHTML =
+    `[${formatted[0]}, ${formatted[1]}]<br>[${formatted[2]}, ${formatted[3]}]`;
 }
 console.log("Quantum App.js loaded successfully!");

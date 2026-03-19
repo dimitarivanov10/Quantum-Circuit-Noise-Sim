@@ -106,7 +106,7 @@ def apply_t(data: QubitState):
 
 @app.post("/apply-cnot")
 def apply_cnot(data: QubitState):
-    if data.control == 0 and data.target == 1:
+    if data.control == 1 and data.target == 0:
         GATE = np.array([[1, 0, 0, 0],
                          [0, 1, 0, 0],
                          [0, 0, 0, 1],
@@ -145,9 +145,9 @@ def apply_gate(data: QubitState, GATE):
     
     if GATE.shape == (2, 2):
         if data.target == 0:
-            final_gate = np.kron(GATE, I_GATE)
-        else:
             final_gate = np.kron(I_GATE, GATE)
+        else:
+            final_gate = np.kron(GATE, I_GATE)
     else:
         final_gate = GATE
         
