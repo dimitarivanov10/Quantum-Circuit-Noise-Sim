@@ -52,6 +52,9 @@ async function applyGate(gateType) {
 
       sphere0ImgEl.src = `data:image/png;base64,${data.visualization[0]}`;
       sphere1ImgEl.src = `data:image/png;base64,${data.visualization[1]}`;
+      sphere0ImgEl.style.display = "block"      
+      sphere1ImgEl.style.display = "block"      
+
       visualPlaceholderEl.style.display = "none";
     }
 

@@ -60,7 +60,7 @@ def generate_bloch_sphere(vec):
 
     for i in [1, 0]:
         q_state = partial_trace(full_state, [1 - i])
-        fig = plot_bloch_multivector(vec, font_size=14, figsize=(5,5));
+        fig = plot_bloch_multivector(q_state, font_size=14, figsize=(5,5));
         fig.patch.set_alpha(0.0)
 
         for ax in fig.axes:

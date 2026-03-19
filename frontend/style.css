@@ -190,11 +190,20 @@ button:active {
 }
 
 #canvas-wrapper {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+}
+
+.sphere-box {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.quantum-sphere {
+  width: 100%;
+  max-width: 350px; /* Adjust this to make them bigger */
+  height: auto;
+  margin: 0 auto;
 }
 
 #bloch-sphere {
@@ -327,7 +336,7 @@ input[type="range"] {
   transition: all 0.3s ease;
 }
 
-.segmented-control input[type="radio"]:checked+label {
+.segmented-control input[type="radio"]:checked + label {
   background: #22d3ee;
   color: #0f172a;
   font-weight: 600;
