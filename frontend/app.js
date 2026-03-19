@@ -45,12 +45,13 @@ async function applyGate(gateType) {
 
     currentState = data.new_state;
     updateUI();
-    if (data.visualization) {
-      const sphereImgEl = document.getElementById("bloch-sphere");
+    if (data.visualization && Array.isArray(data.visualization)) {
+      const sphere0ImgEl = document.getElementById("bloch-sphere-0");
+      const sphere1ImgEl = document.getElementById("bloch-sphere-1");
       const visualPlaceholderEl = document.getElementById("visual-placeholder");
 
-      sphereImgEl.src = `data:image/png;base64,${data.visualization}`;
-      sphereImgEl.style.display = "block";
+      sphere0ImgEl.src = `data:image/png;base64,${data.visualization[0]}`;
+      sphere1ImgEl.src = `data:image/png;base64,${data.visualization[1]}`;
       visualPlaceholderEl.style.display = "none";
     }
 
