@@ -29,11 +29,12 @@
       <div class="controls">
         <div class="gate-group">
           <span class="gate-label">Target Qubit (for all gates)</span>
-          <select id="target-qubit"
-            style="width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #334155; background: #1e293b; color: white;">
-            <option value="0">Qubit 0</option>
-            <option value="1">Qubit 1</option>
-          </select>
+          <div class="segmented-control">
+            <input type="radio" id="target-0" name="target-qubit" value="0" checked>
+            <label for="target-0">Qubit 0</label>
+            <input type="radio" id="target-1" name="target-qubit" value="1">
+            <label for="target-1">Qubit 1</label>
+          </div>
         </div>
         <div class="gate-group">
           <span class="gate-label">Pauli-X (Not)</span>
@@ -61,11 +62,12 @@
         </div>
         <div class="gate-group">
           <span class="gate-label">CNOT (Controlled-NOT)</span>
-          <select id="control-qubit"
-            style="width: 100%; padding: 5px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #334155; background: #1e293b; color: white;">
-            <option value="0">Control: Qubit 0</option>
-            <option value="1" selected>Control: Qubit 1</option>
-          </select>
+          <div class="segmented-control">
+            <input type="radio" id="control-0" name="control-qubit" value="0">
+            <label for="control-0">Control: Q0</label>
+            <input type="radio" id="control-1" name="control-qubit" value="1" checked>
+            <label for="control-1">Control: Q1</label>
+          </div>
           <button onclick="applyGate('cnot')">Apply CNOT Gate</button>
         </div>
         <div class="gate-group">

@@ -13,12 +13,12 @@ async function applyGate(gateType) {
   const noiseLevel = noiseSliderDivEl.value / 100;
 
   let target = 0;
-  const targetEl = document.getElementById("target-qubit");
+  const targetEl = document.querySelector('input[name="target-qubit"]:checked');
   if (targetEl) target = parseInt(targetEl.value);
 
   let control = 0;
   if (gateType === 'cnot') {
-    const controlEl = document.getElementById("control-qubit");
+    const controlEl = document.querySelector('input[name="control-qubit"]:checked');
     if (controlEl) {
       control = parseInt(controlEl.value);
       if (control === target) {
