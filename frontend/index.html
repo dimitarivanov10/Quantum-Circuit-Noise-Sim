@@ -1,87 +1,92 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quantum Circuit Simulator</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div class="main-layout">
-      <div class="container">
-        <h1>Quantum Engine v1.0</h1>
 
-        <div class="state-box">
-          <span class="gate-label">Current Amplitude Vector</span>
-          <div id="state-display" class="state-val">[1.000, 0.000]</div>
-          <div>
-            <button onclick="applyGate('measure')" class="btn-measure-mini">
-              Measure
-            </button>
-            <button onclick="resetCircuit()" class="btn-reset-mini">
-              Reset amplitude vector
-            </button>
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum Circuit Simulator</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-        <div class="controls">
-          <div class="gate-group">
-            <span class="gate-label">Pauli-X (Not)</span>
-            <button onclick="applyGate('x')">Apply X Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label">Hadamard (Supeposition)</span>
-            <button onclick="applyGate('h')">Apply H Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label">Pauli-Y</span>
-            <button onclick="applyGate('y')">Apply Y Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label">Pauli-Z</span>
-            <button onclick="applyGate('z')">Apply Z Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label">S-Gate (90 degree rotation)</span>
-            <button onclick="applyGate('s')">Apply S Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label">T-Gate (45 degree rotation)</span>
-            <button onclick="applyGate('t')">Apply T Gate</button>
-          </div>
-          <div class="gate-group">
-            <span class="gate-label"
-              >Noise Level: <span id="noise-display">0</span>%</span
-            >
-            <input
-              type="range"
-              id="noise-slider"
-              min="0"
-              max="20"
-              value="0"
-              step="1"
-              style="width: 80%"
-            />
-          </div>
+<body>
+  <div class="main-layout">
+    <div class="container">
+      <h1>Quantum Engine v1.0</h1>
+
+      <div class="state-box">
+        <span class="gate-label">Current Amplitude Vector</span>
+        <div id="state-display" class="state-val">[1.000, 0.000, 0.000, 0.000]</div>
+        <div>
+          <button onclick="applyGate('measure')" class="btn-measure-mini">
+            Measure
+          </button>
+          <button onclick="resetCircuit()" class="btn-reset-mini">
+            Reset amplitude vector
+          </button>
         </div>
       </div>
-      <div class="visualizer-container">
-        <span class="gate-label">Bloch Sphere Projection</span>
-        <div id="canvas-wrapper">
-          <img
-            id="bloch-sphere"
-            src=""
-            alt="Apply a gate to see the Bloch Sphere"
-            style="display: none"
-          />
-          <div id="visual-placeholder">Initialize gate to project state</div>
+
+      <div class="controls">
+        <div class="gate-group">
+          <span class="gate-label">Target Qubit (for all gates)</span>
+          <select id="target-qubit"
+            style="width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #334155; background: #1e293b; color: white;">
+            <option value="0">Qubit 0</option>
+            <option value="1">Qubit 1</option>
+          </select>
         </div>
-        <div class="history-log">
-          <span class="gate-label">Measurement History</span>
-          <div id="log-list"></div>
+        <div class="gate-group">
+          <span class="gate-label">Pauli-X (Not)</span>
+          <button onclick="applyGate('x')">Apply X Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">Hadamard (Supeposition)</span>
+          <button onclick="applyGate('h')">Apply H Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">Pauli-Y</span>
+          <button onclick="applyGate('y')">Apply Y Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">Pauli-Z</span>
+          <button onclick="applyGate('z')">Apply Z Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">S-Gate (90 degree rotation)</span>
+          <button onclick="applyGate('s')">Apply S Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">T-Gate (45 degree rotation)</span>
+          <button onclick="applyGate('t')">Apply T Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">CNOT (Controlled-NOT)</span>
+          <select id="control-qubit"
+            style="width: 100%; padding: 5px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #334155; background: #1e293b; color: white;">
+            <option value="0">Control: Qubit 0</option>
+            <option value="1" selected>Control: Qubit 1</option>
+          </select>
+          <button onclick="applyGate('cnot')">Apply CNOT Gate</button>
+        </div>
+        <div class="gate-group">
+          <span class="gate-label">Noise Level: <span id="noise-display">0</span>%</span>
+          <input type="range" id="noise-slider" min="0" max="20" value="0" step="1" style="width: 80%" />
         </div>
       </div>
     </div>
-    <script src="./app.js"></script>
-  </body>
+    <div class="visualizer-container">
+      <span class="gate-label">Bloch Sphere Projection</span>
+      <div id="canvas-wrapper">
+        <img id="bloch-sphere" src="" alt="Apply a gate to see the Bloch Sphere" style="display: none" />
+        <div id="visual-placeholder">Initialize gate to project state</div>
+      </div>
+      <div class="history-log">
+        <span class="gate-label">Measurement History</span>
+        <div id="log-list"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+
 </html>

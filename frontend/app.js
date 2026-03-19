@@ -1,4 +1,4 @@
-let currentState = [1, 0];
+let currentState = [1, 0, 0, 0];
 const noiseSliderDivEl = document.getElementById("noise-slider");
 const noiseDisplayDivEl = document.getElementById("noise-display");
 
@@ -12,13 +12,29 @@ async function applyGate(gateType) {
   const url = `http://127.0.0.1:8000/apply-${gateType}`;
   const noiseLevel = noiseSliderDivEl.value / 100;
 
+  let target = 0;
+  const targetEl = document.getElementById("target-qubit");
+  if (targetEl) target = parseInt(targetEl.value);
+
+  let control = 0;
+  if (gateType === 'cnot') {
+    const controlEl = document.getElementById("control-qubit");
+    if (controlEl) {
+      control = parseInt(controlEl.value);
+      if (control === target) {
+        alert("Control and target qubits must be different for CNOT!");
+        return;
+      }
+    }
+  }
+
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ state: currentState, noise: noiseLevel }),
+      body: JSON.stringify({ state: currentState, noise: noiseLevel, target: target, control: control }),
     });
 
     if (!response.ok) {
@@ -68,7 +84,7 @@ function resetCircuit() {
 
   sphereImgEl.style.display = "none";
   visualPlaceholderEl.style.display = "block";
-  currentState = [1, 0];
+  currentState = [1, 0, 0, 0];
   updateUI();
   if (logListEl) {
     logListEl.innerHTML = "";

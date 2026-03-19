@@ -14,6 +14,8 @@ app = FastAPI()
 class QubitState(BaseModel):
     state: list
     noise: float = 0.0
+    target: int = 0
+    control: int = 0
 
 app.add_middleware(
     CORSMiddleware,
@@ -39,6 +41,8 @@ S_GATE = np.array([[1, 0], [0, 1j]])
 
 # T-Gate (45 degree rotation)
 T_GATE = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
+
+I_GATE = np.eye(2)
 
 def generate_bloch_sphere(vec):
     import matplotlib.pyplot as plt
@@ -100,30 +104,54 @@ def apply_s(data: QubitState):
 def apply_t(data: QubitState):
     return apply_gate(data, T_GATE)
 
+@app.post("/apply-cnot")
+def apply_cnot(data: QubitState):
+    if data.control == 0 and data.target == 1:
+        GATE = np.array([[1, 0, 0, 0],
+                         [0, 1, 0, 0],
+                         [0, 0, 0, 1],
+                         [0, 0, 1, 0]])
+    else:
+        GATE = np.array([[1, 0, 0, 0],
+                         [0, 0, 0, 1],
+                         [0, 0, 1, 0],
+                         [0, 1, 0, 0]])
+    return apply_gate(data, GATE)
+
 @app.post("/apply-measure")
 def apply_measure(data:QubitState):
     vec = prepare_vector(data.state)
     vec = apply_noise(vec, data.noise)
 
-    prob_0 = np.abs(vec[0])**2
-    prob_1 = np.abs(vec[1])**2
+    probs = np.abs(vec)**2
+    probs /= np.sum(probs) # ensure normalization
 
-    outcome = random.choices([0, 1], weights=[prob_0, prob_1])[0]
+    outcomes = list(range(len(vec)))
+    outcome = random.choices(outcomes, weights=probs)[0]
 
-    if outcome == 0:
-        new_state = np.array([1, 0], dtype=complex)
-    else:
-        new_state = np.array([0, 1], dtype=complex)
+    new_state = np.zeros_like(vec, dtype=complex)
+    new_state[outcome] = 1.0
 
     visual_data = generate_bloch_sphere(new_state)
+    outcome_str = format(outcome, f"0{int(np.log2(len(vec)))}b")
     return {
         "new_state": serialize_state(new_state),
         "visualization": visual_data,
-        "result": outcome
+        "result": outcome_str
     }
+
 def apply_gate(data: QubitState, GATE):
     vec = prepare_vector(data.state)
-    new_state = np.dot(GATE, vec)
+    
+    if GATE.shape == (2, 2):
+        if data.target == 0:
+            final_gate = np.kron(GATE, I_GATE)
+        else:
+            final_gate = np.kron(I_GATE, GATE)
+    else:
+        final_gate = GATE
+        
+    new_state = np.dot(final_gate, vec)
     new_state = apply_noise(new_state, data.noise)
     visual_data = generate_bloch_sphere(new_state)
     return {"new_state": serialize_state(new_state),
@@ -136,8 +164,7 @@ def prepare_vector(state_list):
 
 def apply_noise(state, noise_level):
     if noise_level > 0:
-        perturbation = np.array([random.gauss(0, 1) + 1j*random.gauss(0, 1), 
-                                 random.gauss(0, 1) + 1j*random.gauss(0, 1)], dtype=complex)
+        perturbation = np.array([random.gauss(0, 1) + 1j*random.gauss(0, 1) for _ in range(len(state))], dtype=complex)
         perturbation /= np.linalg.norm(perturbation)
         
         state = (1 - noise_level) * state + noise_level * perturbation
