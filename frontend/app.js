@@ -82,12 +82,16 @@ function addToLog(result) {
 }
 
 function resetCircuit() {
-  const sphereImgEl = document.getElementById("bloch-sphere");
+  const sphere0ImgEl = document.getElementById("bloch-sphere-0");
+  const sphere1ImgEl = document.getElementById("bloch-sphere-1");
   const visualPlaceholderEl = document.getElementById("visual-placeholder");
   const logListEl = document.getElementById("log-list");
 
-  sphereImgEl.style.display = "none";
-  visualPlaceholderEl.style.display = "block";
+  sphere0ImgEl.style.display = "none";
+  sphere1ImgEl.style.display = "none";
+  if(visualPlaceholderEl){
+    visualPlaceholderEl.style.display = "block";
+  }
   currentState = [1, 0, 0, 0];
   updateUI();
   if (logListEl) {
