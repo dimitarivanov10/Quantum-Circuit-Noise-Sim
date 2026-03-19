@@ -193,16 +193,21 @@ button:active {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  min-height: auto;
 }
 
 .sphere-box {
+  flex: 1;
   margin-bottom: 20px;
   width: 100%;
+  min-width: 250px;
 }
 .quantum-sphere {
   width: 100%;
-  max-width: 350px; /* Adjust this to make them bigger */
+  max-width: 350px;
   height: auto;
+  display: none;
   margin: 0 auto;
 }
 
@@ -240,6 +245,16 @@ button:active {
   border-top: 1px solid #334155;
   padding-top: 15px;
   width: 100%;
+}
+
+#visual-placeholder {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  color: #94a3b8;
+  font-style: italic;
+  font-size: 0.9rem;
+  order: 10;
 }
 
 #log-list {
