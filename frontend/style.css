@@ -170,7 +170,7 @@ button:active {
   background: #1e293b;
   border-radius: 16px;
   padding: 25px 30px;
-  width: 380px;
+  width: 650px;
   text-align: center;
   box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.3),
@@ -199,7 +199,7 @@ button:active {
 
 #bloch-sphere {
   width: 100%;
-  max-width: 320px;
+  max-width: 600px;
   margin: 0 auto;
 }
 

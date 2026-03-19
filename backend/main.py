@@ -46,6 +46,20 @@ I_GATE = np.eye(2)
 
 def generate_bloch_sphere(vec):
     import matplotlib.pyplot as plt
+    full_state = Statevector(vec)
+    images = []
+
+    for i in [0, 1]:
+        q_state = partial_trace(full_state, [1 - i])
+        fig = plot_bloch_multivector(vec, font_size=14, figsize=(5,5));
+        fig.patch.set_alpha(0.0)
+        for ax in fig.axes:
+            ax.set_facecolor((0, 0, 0, 0))
+            ax.xaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
+            ax.yaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
+            ax.zaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
+            ax.grid(False)
+        
 
     plt.rcParams.update({
         "text.color": "#f8fafc",
@@ -54,18 +68,11 @@ def generate_bloch_sphere(vec):
         "ytick.color": "#f8fafc",
     })
 
-    fig = plot_bloch_multivector(vec, font_size=14)
     
-    fig.patch.set_alpha(0.0)
-    for ax in fig.axes:
-        ax.set_facecolor((0, 0, 0, 0))
-        ax.xaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
-        ax.yaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
-        ax.zaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
-        ax.grid(False)
+    
 
     buf = io.BytesIO()
-    fig.savefig(buf, format="png", transparent=True , bbox_inches='tight', pad_inches=0.1)
+    fig.savefig(buf, format="png", transparent=True , bbox_inches='tight', pad_inches=0.1, dpi=100)
     buf.seek(0)
 
     img_str = base64.b64encode(buf.read()).decode("utf-8")
