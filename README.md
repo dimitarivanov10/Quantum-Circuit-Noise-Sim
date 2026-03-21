@@ -37,7 +37,7 @@ The simulator supports a variety of fundamental gates. Single-qubit gates are ex
 - **Pauli Gates (X, Y, Z)**: Bit-flip and phase-flip operations.
 - **Hadamard (H)**: Creates a balanced superposition state.
 - **Phase Rotations (S, T)**: 90-degree and 45-degree rotations around the Z-axis.
-- **Entanglement (CNOT)**: A 2-qubit operation where the target qubit is flipped only if the control qubit is in state $|1\rangle$.
+- **Entanglement (CNOT)**: A 2-qubit operation where the target qubit is flipped only if the control qubit is in state $|1\rangle$
 
 ### 2. Environmental Noise and Fidelity
 
