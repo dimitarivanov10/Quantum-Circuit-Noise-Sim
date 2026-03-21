@@ -17,8 +17,10 @@ async function applyGate(gateType) {
   if (targetEl) target = parseInt(targetEl.value);
 
   let control = 0;
-  if (gateType === 'cnot') {
-    const controlEl = document.querySelector('input[name="control-qubit"]:checked');
+  if (gateType === "cnot") {
+    const controlEl = document.querySelector(
+      'input[name="control-qubit"]:checked',
+    );
     if (controlEl) {
       control = parseInt(controlEl.value);
       if (control === target) {
@@ -34,7 +36,12 @@ async function applyGate(gateType) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ state: currentState, noise: noiseLevel, target: target, control: control }),
+      body: JSON.stringify({
+        state: currentState,
+        noise: noiseLevel,
+        target: target,
+        control: control,
+      }),
     });
 
     if (!response.ok) {
@@ -52,10 +59,16 @@ async function applyGate(gateType) {
 
       sphere0ImgEl.src = `data:image/png;base64,${data.visualization[0]}`;
       sphere1ImgEl.src = `data:image/png;base64,${data.visualization[1]}`;
-      sphere0ImgEl.style.display = "block"      
-      sphere1ImgEl.style.display = "block"      
+      sphere0ImgEl.style.display = "block";
+      sphere1ImgEl.style.display = "block";
 
       visualPlaceholderEl.style.display = "none";
+    }
+
+    if (data.fidelity !== undefined) {
+      const percentage = (data.fidelity * 100).toFixed(1);
+      document.getElementById("fidelity-val").innerText = percentage;
+      document.getElementById("fidelity-bar").style.width = percentage + "%";
     }
 
     if (gateType === "measure") {
@@ -89,7 +102,7 @@ function resetCircuit() {
 
   sphere0ImgEl.style.display = "none";
   sphere1ImgEl.style.display = "none";
-  if(visualPlaceholderEl){
+  if (visualPlaceholderEl) {
     visualPlaceholderEl.style.display = "block";
   }
   currentState = [1, 0, 0, 0];

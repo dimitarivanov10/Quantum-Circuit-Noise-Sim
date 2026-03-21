@@ -127,25 +127,30 @@ def apply_cnot(data: QubitState):
     return apply_gate(data, GATE)
 
 @app.post("/apply-measure")
-def apply_measure(data:QubitState):
+def apply_measure(data: QubitState):
     vec = prepare_vector(data.state)
-    vec = apply_noise(vec, data.noise)
+    
+    ideal_state = vec.copy() 
+    noisy_state = apply_noise(vec.copy(), data.noise)
+    fidelity = np.abs(np.vdot(ideal_state, noisy_state))**2
 
-    probs = np.abs(vec)**2
-    probs /= np.sum(probs) # ensure normalization
+    probs = np.abs(noisy_state)**2
+    probs /= np.sum(probs)
 
-    outcomes = list(range(len(vec)))
+    outcomes = list(range(len(noisy_state)))
     outcome = random.choices(outcomes, weights=probs)[0]
 
-    new_state = np.zeros_like(vec, dtype=complex)
+    new_state = np.zeros_like(noisy_state, dtype=complex)
     new_state[outcome] = 1.0
 
     visual_data = generate_bloch_sphere(new_state)
-    outcome_str = format(outcome, f"0{int(np.log2(len(vec)))}b")
+    outcome_str = format(outcome, f"0{int(np.log2(len(noisy_state)))}b")
+    
     return {
         "new_state": serialize_state(new_state),
         "visualization": visual_data,
-        "result": outcome_str
+        "result": outcome_str,
+        "fidelity": float(fidelity) 
     }
 
 def apply_gate(data: QubitState, GATE):
@@ -159,11 +164,17 @@ def apply_gate(data: QubitState, GATE):
     else:
         final_gate = GATE
         
-    new_state = np.dot(final_gate, vec)
-    new_state = apply_noise(new_state, data.noise)
-    visual_data = generate_bloch_sphere(new_state)
-    return {"new_state": serialize_state(new_state),
-            "visualization": visual_data}
+    ideal_state = np.dot(final_gate, vec)
+    noisy_state = apply_noise(ideal_state.copy(), data.noise)
+    
+    fidelity = np.abs(np.vdot(ideal_state, noisy_state))**2
+
+    visual_data = generate_bloch_sphere(noisy_state)
+
+    return {"new_state": serialize_state(noisy_state),
+            "visualization": visual_data,
+            "fidelity": float(fidelity)
+            }
     
 
 def prepare_vector(state_list):
