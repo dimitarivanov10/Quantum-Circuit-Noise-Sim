@@ -5,7 +5,7 @@ import numpy as np
 import random
 
 from quantum_logic import(
-    prepare_vector, apply_noise, serialize_state, prepare_vector, apply_gate, apply_cnot,
+    prepare_vector, apply_noise, serialize_state, prepare_vector, apply_gate, apply_cnot, apply_measure,
     X_GATE, H_GATE, Y_GATE, Z_GATE, S_GATE, T_GATE, I_GATE
 )
 from visualizer import generate_bloch_sphere
@@ -32,30 +32,49 @@ def home():
 
 @app.post("/apply-x")
 def apply_x(data: QubitState):
-    return apply_gate(data, X_GATE)
+    result = apply_gate(data, X_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-h")
 def apply_h(data: QubitState):
-    return apply_gate(data, H_GATE)
+    result = apply_gate(data, H_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-y")
 def apply_y(data: QubitState):
-    return apply_gate(data, Y_GATE)
+    result = apply_gate(data, Y_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-z")
 def apply_z(data: QubitState):
-    return apply_gate(data, Z_GATE)
+    result = apply_gate(data, Z_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-s")
 def apply_s(data: QubitState):
-    return apply_gate(data, S_GATE)
+    result = apply_gate(data, S_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-t")
 def apply_t(data: QubitState):
-    return apply_gate(data, T_GATE)
+    result = apply_gate(data, T_GATE)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result
 
 @app.post("/apply-cnot")
+def apply_cnot_gate(data: QubitState):
+    result = apply_cnot(data)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result 
 
-
-@app.post("/apply-measure")
+@app.post("/apply-measure") 
+def measure(data: QubitState):
+    result = apply_measure(data)
+    result["visualization"] = generate_bloch_sphere(prepare_vector(result["new_state"]))
+    return result 
     

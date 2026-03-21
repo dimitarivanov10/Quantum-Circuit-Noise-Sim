@@ -37,7 +37,7 @@ def prepare_vector(state_list):
     clean_list = [complex(x) if isinstance(x, str) else x for x in state_list]
     return np.array(clean_list, dtype=complex)
 
-    def apply_measure(data: QubitState):
+def apply_measure(data):
     vec = prepare_vector(data.state)
     
     ideal_state = vec.copy() 
@@ -53,17 +53,15 @@ def prepare_vector(state_list):
     new_state = np.zeros_like(noisy_state, dtype=complex)
     new_state[outcome] = 1.0
 
-    visual_data = generate_bloch_sphere(new_state)
     outcome_str = format(outcome, f"0{int(np.log2(len(noisy_state)))}b")
     
     return {
         "new_state": serialize_state(new_state),
-        "visualization": visual_data,
         "result": outcome_str,
         "fidelity": float(fidelity) 
     }
 
-def apply_cnot(data: QubitState):
+def apply_cnot(data):
     if data.control == 1 and data.target == 0:
         GATE = np.array([[1, 0, 0, 0],
                          [0, 1, 0, 0],
@@ -76,7 +74,7 @@ def apply_cnot(data: QubitState):
                          [0, 1, 0, 0]])
     return apply_gate(data, GATE)
 
-def apply_gate(data: QubitState, GATE):
+def apply_gate(data, GATE):
     vec = prepare_vector(data.state)
     
     if GATE.shape == (2, 2):
@@ -92,9 +90,8 @@ def apply_gate(data: QubitState, GATE):
     
     fidelity = np.abs(np.vdot(ideal_state, noisy_state))**2
 
-    visual_data = generate_bloch_sphere(noisy_state)
 
     return {"new_state": serialize_state(noisy_state),
-            "visualization": visual_data,
             "fidelity": float(fidelity)
             }
+
