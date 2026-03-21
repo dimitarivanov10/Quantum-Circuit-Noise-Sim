@@ -10,7 +10,7 @@
   <body>
     <div class="main-layout">
       <aside class="controls">
-        <span class="gate-label" style="font-size: 1rem; color: #f1f5f9"
+        <span class="gate-label" style="font-size: 0.9rem; color: #f1f5f9"
           >Circuit Controls</span
         >
         <hr
@@ -18,7 +18,7 @@
             border: 0;
             border-top: 1px solid #334155;
             width: 100%;
-            margin: 10px 0;
+            margin: 8px 0;
           "
         />
 
@@ -41,10 +41,10 @@
         <div class="gate-group">
           <span class="gate-label">Pauli Gates</span>
           <button onclick="applyGate('x')">Apply X Gate</button>
-          <button onclick="applyGate('y')" style="margin-top: 5px">
+          <button onclick="applyGate('y')" style="margin-top: 4px">
             Apply Y Gate
           </button>
-          <button onclick="applyGate('z')" style="margin-top: 5px">
+          <button onclick="applyGate('z')" style="margin-top: 4px">
             Apply Z Gate
           </button>
         </div>
@@ -57,7 +57,7 @@
         <div class="gate-group">
           <span class="gate-label">Phase Rotations</span>
           <button onclick="applyGate('s')">Apply S Gate</button>
-          <button onclick="applyGate('t')" style="margin-top: 5px">
+          <button onclick="applyGate('t')" style="margin-top: 4px">
             Apply T Gate
           </button>
         </div>
@@ -76,16 +76,24 @@
             />
             <label for="control-1">Ctrl: Q1</label>
           </div>
-          <button onclick="applyGate('cnot')" style="margin-top: 5px">
+          <button onclick="applyGate('cnot')" style="margin-top: 4px">
             Apply CNOT
           </button>
         </div>
 
         <div class="gate-group">
-          <span class="gate-label">Environmental Noise</span>
-          <span id="noise-display" style="color: #22d3ee; font-weight: bold"
-            >0</span
-          >%
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span class="gate-label" style="margin-bottom: 0">Noise Level</span>
+            <span style="font-size: 0.75rem; color: #22d3ee; font-weight: bold"
+              ><span id="noise-display">0</span>%</span
+            >
+          </div>
           <input
             type="range"
             id="noise-slider"
@@ -111,9 +119,9 @@
         <div class="analysis-meter">
           <div class="fidelity-header">
             <span class="gate-label">System Fidelity</span>
-            <span id="fidelity-val" style="color: #22d3ee; font-weight: bold"
-              >100</span
-            >%
+            <span style="color: #22d3ee; font-weight: bold"
+              ><span id="fidelity-val">100</span>%</span
+            >
           </div>
           <div class="progress-bar-bg">
             <div id="fidelity-bar" style="width: 100%"></div>
@@ -132,7 +140,6 @@
 
       <section class="visualizer-container">
         <span class="gate-label">Bloch Sphere Projection</span>
-
         <div id="canvas-wrapper">
           <div class="sphere-box">
             <span class="gate-label">Qubit 0</span>
