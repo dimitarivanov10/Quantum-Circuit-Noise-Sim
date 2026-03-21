@@ -270,6 +270,18 @@ button:hover {
   font-weight: bold;
 }
 
+.log-01 {
+  color: #818cf8; /* Indigo - soft and distinct */
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
+}
+
+.log-10 {
+  color: #fbbf24; /* Amber - warm and visible */
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
