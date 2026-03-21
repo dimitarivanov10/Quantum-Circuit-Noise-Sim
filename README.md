@@ -118,3 +118,40 @@ The API will be active at **http://127.0.0.1:8000**. Keep this terminal window o
 #### 2. Launch the Frontend
 
 Navigate to the **frontend** folder and open **index.html** in any modern web browser.
+
+### User Tutorial: Step-by-Step Guide
+
+#### Experiment 1: Basic Gate Manipulation
+
+1. Ensure **Target Qubit**: **Qubit 0** is selected.
+2. Click **Apply X Gate**. This is a bit-flip. Observe the **Amplitude Vector** change from [1, 0, 0, 0] (State $|00\rangle$) to [0, 1, 0, 0] (State $|01\rangle$).
+3. The **Bloch Sphere** for Qubit 0 will rotate 180° to the bottom pole.
+
+#### Experiment 2: Creating Superposition (Quantum Randomness)
+
+1. Click **System Reset**.
+2. Apply the **H Gate** (Hadamard) to **Qubit 0**.
+3. The state is now $|+\rangle$. The Amplitude Vector will show roughly 0.707 for the first two indices. This means there is a 50/50 chance of measuring 0 or 1.
+4. The Bloch Sphere vector will point toward the **X-axis**.
+
+#### Experiment 3: Quantum Entanglement (The Bell State)
+
+1. Click **System Reset**.
+2. Apply an **H Gate** to **Qubit 0**.
+3. Set the **Target Qubit** to **Qubit 1**.
+4. Ensure the **Control Qubit** radio button is set to **Ctrl: Q0**.
+5. Click **Apply CNOT**.
+6. You have created a Bell State $|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$. The Amplitude Vector now only has values for the first ($|00\rangle$) and last ($|11\rangle$) positions.
+
+#### Experiment 4: Simulating Environmental Noise
+
+1. Apply any gate (e.g., the **H Gate**).
+2. Slowly move the **Environmental Noise** slider to **15%**.
+3. Watch the **System Fidelity** bar. It will drop from 100%, indicating that the quantum state is losing its "purity" due to simulated decoherence.
+4. Click **Measure System**. Because of the noise, the result might differ from the ideal mathematical outcome.
+
+### Troubleshooting
+
+- **"Backend Error" Alert**: This usually means the Python server isn't running. Re-run the uvicorn command in your terminal.
+- **Port 8000 Conflict**: If another app is using port 8000, run the server on a different port: uvicorn main:app --port 8080.
+- **Dependencies**: If the Bloch spheres do not render, ensure you ran the pip install command inside the activated virtual environment.
