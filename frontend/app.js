@@ -1,41 +1,41 @@
 let currentState = [1, 0, 0, 0];
-const noiseSliderDivEl = document.getElementById("noise-slider");
-const noiseDisplayDivEl = document.getElementById("noise-display");
+const noiseSlider = document.getElementById("noise-slider");
+const noiseDisplay = document.getElementById("noise-display");
+const fidelityVal = document.getElementById("fidelity-val");
+const fidelityBar = document.getElementById("fidelity-bar");
+const stateDisplay = document.getElementById("state-display");
+const visualPlaceholder = document.getElementById("visual-placeholder");
+const sphere0 = document.getElementById("bloch-sphere-0");
+const sphere1 = document.getElementById("bloch-sphere-1");
+const logList = document.getElementById("log-list");
 
-noiseSliderDivEl.oninput = function () {
-  noiseDisplayDivEl.innerText = this.value;
+noiseSlider.oninput = function () {
+  noiseDisplay.innerText = this.value;
 };
 
 async function applyGate(gateType) {
-  console.log(`Sending request to apply ${gateType} gate...`);
+  console.log(`Executing ${gateType} transformation...`);
 
-  const url = `http://127.0.0.1:8000/apply-${gateType}`;
-  const noiseLevel = noiseSliderDivEl.value / 100;
-
-  let target = 0;
-  const targetEl = document.querySelector('input[name="target-qubit"]:checked');
-  if (targetEl) target = parseInt(targetEl.value);
-
+  const noiseLevel = noiseSlider.value / 100;
+  const target = parseInt(
+    document.querySelector('input[name="target-qubit"]:checked').value,
+  );
   let control = 0;
+
   if (gateType === "cnot") {
-    const controlEl = document.querySelector(
-      'input[name="control-qubit"]:checked',
+    control = parseInt(
+      document.querySelector('input[name="control-qubit"]:checked').value,
     );
-    if (controlEl) {
-      control = parseInt(controlEl.value);
-      if (control === target) {
-        alert("Control and target qubits must be different for CNOT!");
-        return;
-      }
+    if (control === target) {
+      alert("Error: Control and target qubits must be different!");
+      return;
     }
   }
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`http://127.0.0.1:8000/apply-${gateType}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         state: currentState,
         noise: noiseLevel,
@@ -44,73 +44,36 @@ async function applyGate(gateType) {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error("Server communication failed.");
 
     const data = await response.json();
 
     currentState = data.new_state;
     updateUI();
-    if (data.visualization && Array.isArray(data.visualization)) {
-      const sphere0ImgEl = document.getElementById("bloch-sphere-0");
-      const sphere1ImgEl = document.getElementById("bloch-sphere-1");
-      const visualPlaceholderEl = document.getElementById("visual-placeholder");
 
-      sphere0ImgEl.src = `data:image/png;base64,${data.visualization[0]}`;
-      sphere1ImgEl.src = `data:image/png;base64,${data.visualization[1]}`;
-      sphere0ImgEl.style.display = "block";
-      sphere1ImgEl.style.display = "block";
-
-      visualPlaceholderEl.style.display = "none";
+    if (data.visualization) {
+      sphere0.src = `data:image/png;base64,${data.visualization[0]}`;
+      sphere1.src = `data:image/png;base64,${data.visualization[1]}`;
+      sphere0.style.display = "block";
+      sphere1.style.display = "block";
+      visualPlaceholder.style.display = "none";
     }
 
     if (data.fidelity !== undefined) {
       const percentage = (data.fidelity * 100).toFixed(1);
-      document.getElementById("fidelity-val").innerText = percentage;
-      document.getElementById("fidelity-bar").style.width = percentage + "%";
+      fidelityVal.innerText = percentage;
+      fidelityBar.style.width = percentage + "%";
     }
 
     if (gateType === "measure") {
-      const stateDisplayDivEl = document.getElementById("state-display");
-      stateDisplayDivEl.classList.add("measuring");
-
+      stateDisplay.classList.add("measuring");
       addToLog(data.result);
-      setTimeout(() => stateDisplayDivEl.classList.remove("measuring"), 500);
+      setTimeout(() => stateDisplay.classList.remove("measuring"), 500);
     }
   } catch (error) {
-    console.error("Could not connect to the backend:", error);
-    alert("Backend error! Make sure your Python terminal is running!");
+    console.error("Quantum Engine Error:", error);
+    alert("Connection Error: Is the Python backend running?");
   }
-}
-
-function addToLog(result) {
-  const logListEl = document.getElementById("log-list");
-  if (!logListEl) return;
-
-  const entryDivEl = document.createElement("div");
-  entryDivEl.className = "log-entry";
-  entryDivEl.innerHTML = `Measured: <span class="log-${result}">|${result}⟩</span>`;
-  logListEl.prepend(entryDivEl);
-}
-
-function resetCircuit() {
-  const sphere0ImgEl = document.getElementById("bloch-sphere-0");
-  const sphere1ImgEl = document.getElementById("bloch-sphere-1");
-  const visualPlaceholderEl = document.getElementById("visual-placeholder");
-  const logListEl = document.getElementById("log-list");
-
-  sphere0ImgEl.style.display = "none";
-  sphere1ImgEl.style.display = "none";
-  if (visualPlaceholderEl) {
-    visualPlaceholderEl.style.display = "block";
-  }
-  currentState = [1, 0, 0, 0];
-  updateUI();
-  if (logListEl) {
-    logListEl.innerHTML = "";
-  }
-  console.log("System reboot: Vector and logs cleared");
 }
 
 function updateUI() {
@@ -120,7 +83,35 @@ function updateUI() {
     }
     return num.toFixed(3);
   });
-  document.getElementById("state-display").innerHTML =
-    `[${formatted[0]}, ${formatted[1]}]<br>[${formatted[2]}, ${formatted[3]}]`;
+
+  stateDisplay.innerHTML = `
+    [${formatted[0]}, ${formatted[1]}]<br>
+    [${formatted[2]}, ${formatted[3]}]
+  `;
 }
-console.log("Quantum App.js loaded successfully!");
+
+function addToLog(result) {
+  if (!logList) return;
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  entry.innerHTML = `Measured: <span class="log-${result}">|${result}⟩</span>`;
+  logList.prepend(entry);
+}
+
+function resetCircuit() {
+  sphere0.style.display = "none";
+  sphere1.style.display = "none";
+  visualPlaceholder.style.display = "block";
+  logList.innerHTML = "";
+
+  currentState = [1, 0, 0, 0];
+  updateUI();
+
+  fidelityVal.innerText = "100";
+  fidelityBar.style.width = "100%";
+
+  console.log("System Status: Reset to Ground State |00>");
+}
+
+updateUI();
+console.log("Quantum Engine Interface v1.0 Loaded.");
