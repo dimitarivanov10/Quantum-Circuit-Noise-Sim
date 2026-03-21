@@ -2,17 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
-import random
 
-from quantum_logic import(
-    prepare_vector, apply_noise, serialize_state, prepare_vector, apply_gate, apply_cnot, apply_measure,
+from quantum_logic import(  
+    apply_noise, serialize_state, prepare_vector, apply_gate, apply_cnot, apply_measure,
     X_GATE, H_GATE, Y_GATE, Z_GATE, S_GATE, T_GATE, I_GATE
 )
 from visualizer import generate_bloch_sphere
 
 app = FastAPI()
 
-class QubitState(BaseModel):
+class QubitState(BaseModel):    
     state: list
     noise: float = 0.0
     target: int = 0
