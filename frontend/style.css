@@ -281,3 +281,81 @@ button:hover {
   background: #334155;
   border-radius: 10px;
 }
+
+/* --- 7. Responsive Mobile Layout --- */
+@media (max-width: 1024px) {
+  body {
+    align-items: flex-start; /* Allow scrolling on small screens */
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .main-layout {
+    flex-direction: column; /* Stack columns vertically */
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 15px;
+    height: auto;
+  }
+
+  /* Make all boxes full width */
+  .controls,
+  .container,
+  .visualizer-container {
+    width: 100%;
+    max-width: 500px; /* Limits width so it stays readable on tablets */
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Adjust the visualizer for mobile */
+  .visualizer-container {
+    flex: none; /* Disable the flex-grow from desktop */
+    order: 3; /* Ensures visualizer is at the bottom */
+  }
+
+  #canvas-wrapper {
+    flex-direction: column; /* Stack spheres vertically on very small phones */
+  }
+
+  .quantum-sphere {
+    max-width: 200px; /* Smaller spheres for mobile */
+  }
+
+  /* Center Column (Engine) adjustments */
+  .container {
+    order: 2;
+    padding: 20px;
+  }
+
+  /* Sidebar adjustments */
+  .controls {
+    order: 1;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .state-val {
+    font-size: 1.4rem;
+  }
+}
+
+/* Extra small screens (Phones) */
+@media (max-width: 480px) {
+  .action-grid {
+    grid-template-columns: 1fr; /* Buttons stack on top of each other */
+  }
+
+  .main-layout {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .gate-group button {
+    padding: 15px; /* Larger touch targets for thumbs */
+  }
+}
