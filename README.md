@@ -68,3 +68,15 @@ The codebase is strictly modularized to ensure maintainability and scalability:
     ├── style.css          # Responsive design and layout
     └── app.js             # Client-side state and API sync
 ```
+
+## Installation and Setup
+
+### 1. Backend Configuration
+
+Ensure you have **Python 3.10** or higher installed on your system. It is highly recommended to use a virtual environment to avoid library conflicts.
+
+**Navigate to the backend directory:**
+
+```bash
+cd backend
+```
