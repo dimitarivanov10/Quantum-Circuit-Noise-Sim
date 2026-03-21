@@ -1,21 +1,31 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantum Circuit Simulator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quantum Circuit Simulator</title>
-  <link rel="stylesheet" href="./style.css" />
-</head>
+  <body>
+    <div class="main-layout">
+      <div class="container">
+        <h1>Quantum Engine v1.0</h1>
 
-<body>
-  <div class="main-layout">
-    <div class="container">
-      <h1>Quantum Engine v1.0</h1>
-
-      <div class="state-box">
-        <span class="gate-label">Current Amplitude Vector</span>
-        <div id="state-display" class="state-val">[1.000, 0.000]<br>[0.000, 0.000]</div>
+        <div class="state-box">
+          <span class="gate-label">Current Amplitude Vector</span>
+          <div id="state-display" class="state-val">
+            [1.000, 0.000]<br />[0.000, 0.000]
+          </div>
+          <div class="analysis-meter">
+            <span class="gate-label"
+              >System Fidelity: <span id="fidelity-val">100</span>%</span
+            >
+            <div class="progress-bar-bg">
+              <div id="fidelity-bar" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
         <div>
           <button onclick="applyGate('measure')" class="btn-measure-mini">
             Measure
@@ -30,9 +40,15 @@
         <div class="gate-group">
           <span class="gate-label">Target Qubit (for all gates)</span>
           <div class="segmented-control">
-            <input type="radio" id="target-0" name="target-qubit" value="0" checked>
+            <input
+              type="radio"
+              id="target-0"
+              name="target-qubit"
+              value="0"
+              checked
+            />
             <label for="target-0">Qubit 0</label>
-            <input type="radio" id="target-1" name="target-qubit" value="1">
+            <input type="radio" id="target-1" name="target-qubit" value="1" />
             <label for="target-1">Qubit 1</label>
           </div>
         </div>
@@ -63,38 +79,63 @@
         <div class="gate-group">
           <span class="gate-label">CNOT (Controlled-NOT)</span>
           <div class="segmented-control">
-            <input type="radio" id="control-0" name="control-qubit" value="0">
+            <input type="radio" id="control-0" name="control-qubit" value="0" />
             <label for="control-0">Control: Q0</label>
-            <input type="radio" id="control-1" name="control-qubit" value="1" checked>
+            <input
+              type="radio"
+              id="control-1"
+              name="control-qubit"
+              value="1"
+              checked
+            />
             <label for="control-1">Control: Q1</label>
           </div>
           <button onclick="applyGate('cnot')">Apply CNOT Gate</button>
         </div>
         <div class="gate-group">
-          <span class="gate-label">Noise Level: <span id="noise-display">0</span>%</span>
-          <input type="range" id="noise-slider" min="0" max="20" value="0" step="1" style="width: 80%" />
+          <span class="gate-label"
+            >Noise Level: <span id="noise-display">0</span>%</span
+          >
+          <input
+            type="range"
+            id="noise-slider"
+            min="0"
+            max="20"
+            value="0"
+            step="1"
+            style="width: 80%"
+          />
         </div>
       </div>
     </div>
     <div class="visualizer-container">
       <span class="gate-label">Bloch Sphere Projection</span>
       <div id="canvas-wrapper">
-    <div class="sphere-box">
-        <span class="gate-label">Qubit 0</span>
-        <img id="bloch-sphere-1" class="quantum-sphere" src="" style="display: none" />
+        <div class="sphere-box">
+          <span class="gate-label">Qubit 0</span>
+          <img
+            id="bloch-sphere-1"
+            class="quantum-sphere"
+            src=""
+            style="display: none"
+          />
+        </div>
+        <div class="sphere-box">
+          <span class="gate-label">Qubit 1</span>
+          <img
+            id="bloch-sphere-0"
+            class="quantum-sphere"
+            src=""
+            style="display: none"
+          />
+        </div>
+        <div id="visual-placeholder">Initialize gate to project state</div>
+      </div>
+      <div class="history-log">
+        <span class="gate-label">Measurement History</span>
+        <div id="log-list"></div>
+      </div>
     </div>
-    <div class="sphere-box">
-        <span class="gate-label">Qubit 1</span>
-        <img id="bloch-sphere-0" class="quantum-sphere" src="" style="display: none" />
-    </div>
-    <div id="visual-placeholder">Initialize gate to project state</div>
-    </div>
-    <div class="history-log">
-      <span class="gate-label">Measurment History</span>
-      <div id="log-list"></div>
-    </div>
-  </div>
-  <script src="./app.js"></script>
-</body>
-
+    <script src="./app.js"></script>
+  </body>
 </html>
