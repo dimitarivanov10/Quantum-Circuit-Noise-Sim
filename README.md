@@ -80,3 +80,29 @@ Ensure you have **Python 3.10** or higher installed on your system. It is highly
 ```bash
 cd backend
 ```
+
+### Create and activate a virtual enviroment
+
+- **Windows**:
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+-**macOS/Linux**:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install required dependencies:
+
+```bash
+pip install fastapi uvicorn numpy qiskit matplotlib qiskit-aer
+```
+
+### 2. Running the Application
+
+#### 1. Start the
