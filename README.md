@@ -90,7 +90,7 @@ python -m venv venv
 .\venv\Scripts\activate
 ```
 
--**macOS/Linux**:
+- **macOS/Linux**:
 
 ```bash
 python3 -m venv venv
@@ -105,4 +105,16 @@ pip install fastapi uvicorn numpy qiskit matplotlib qiskit-aer
 
 ### 2. Running the Application
 
-#### 1. Start the
+#### 1. Start the Backend Server:
+
+#### In your activated terminal, run:
+
+```bash
+uvicorn main:app --reload
+```
+
+#### The API will be active at **http://127.0.0.1:8000**. Keep this terminal window open.
+
+#### 2. Launch the Frontend
+
+#### Navigate to the **frontend** folder and open **index.html** in any modern web browser.
