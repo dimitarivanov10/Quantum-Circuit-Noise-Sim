@@ -5,8 +5,9 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
   margin: 0;
 }
 
@@ -18,6 +19,14 @@ body {
   max-width: 1400px;
   width: 95%;
   padding: 20px;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
 }
 
 /* --- 2. Left Column: Controls Sidebar --- */
@@ -43,7 +52,7 @@ body {
   font-size: 0.75rem;
   color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-scing: 1.5px;
   font-weight: 600;
 }
 
@@ -292,6 +301,31 @@ button:hover {
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 10px;
+}
+
+/* Footer Styling */
+.app-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.6); /* Matches your dark theme */
+  backdrop-filter: blur(10px);
+  color: #94a3b8; /* Subtle slate color */
+  font-size: 0.9rem;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.watermark {
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
 
 /* --- 7. Responsive Mobile Layout --- */
