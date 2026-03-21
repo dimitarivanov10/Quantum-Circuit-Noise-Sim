@@ -119,7 +119,7 @@ The API will be active at **http://127.0.0.1:8000**. Keep this terminal window o
 
 Navigate to the **frontend** folder and open **index.html** in any modern web browser.
 
-### User Tutorial: Step-by-Step Guide
+## User Tutorial: Step-by-Step Guide
 
 #### Experiment 1: Basic Gate Manipulation
 
@@ -150,7 +150,7 @@ Navigate to the **frontend** folder and open **index.html** in any modern web br
 3. Watch the **System Fidelity** bar. It will drop from 100%, indicating that the quantum state is losing its "purity" due to simulated decoherence.
 4. Click **Measure System**. Because of the noise, the result might differ from the ideal mathematical outcome.
 
-### Troubleshooting
+## Troubleshooting
 
 - **"Backend Error" Alert**: This usually means the Python server isn't running. Re-run the uvicorn command in your terminal.
 - **Port 8000 Conflict**: If another app is using port 8000, run the server on a different port: uvicorn main:app --port 8080.
