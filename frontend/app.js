@@ -115,7 +115,10 @@ function resetCircuit() {
 
 function updateUI() {
   const formatted = currentState.map((num) => {
-    return typeof num === "number" ? num.toFixed(3) : num;
+    if (typeof num === "string") {
+      return num.replace(/(\d+\.\d{3})\d+/g, "$1");
+    }
+    return num.toFixed(3);
   });
   document.getElementById("state-display").innerHTML =
     `[${formatted[0]}, ${formatted[1]}]<br>[${formatted[2]}, ${formatted[3]}]`;
