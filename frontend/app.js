@@ -33,16 +33,19 @@ async function applyGate(gateType) {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/apply-${gateType}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        state: currentState,
-        noise: noiseLevel,
-        target: target,
-        control: control,
-      }),
-    });
+    const response = await fetch(
+      `https://quantum-circuit-noise-sim.onrender.com/apply-${gateType}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          state: currentState,
+          noise: noiseLevel,
+          target: target,
+          control: control,
+        }),
+      },
+    );
 
     if (!response.ok) throw new Error("Server communication failed.");
 
