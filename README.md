@@ -1,5 +1,11 @@
 # Quantum Engine v1.0: Multi-Qubit Simulator
 
+# ⚛️ Quantum Engine v1.0
+
+**Live Demo:** [https://your-username.github.io/quantum-circuit-noise-sim/](https://your-username.github.io/quantum-circuit-noise-sim/)
+
+_Note: The backend is hosted on a free Render instance. If the app doesn't respond immediately, please wait 30 seconds for the server to "wake up" from sleep mode._
+
 ## Project Description
 
 **Quantum Engine v1.0** is a full-stack, modular quantum circuit simulator designed to model 2-qubit systems. The platform implements environmental noise models (Gaussian Decoherence), system fidelity analysis, and partial trace visualizations. It provides an interactive dashboard for users to apply quantum gates, observe entanglement, and witness wavefunction collapse through real-time Bloch Sphere projections.
