@@ -2,7 +2,7 @@
 
 # ⚛️ Quantum Engine v1.0
 
-**Live Demo:** [https://your-username.github.io/quantum-circuit-noise-sim/](https://your-username.github.io/quantum-circuit-noise-sim/)
+**Live Demo:** [https://dimitarivanov10.github.io/Quantum-Circuit-Noise-Sim/](https://dimitarivanov10.github.io/Quantum-Circuit-Noise-Sim/)
 
 _Note: The backend is hosted on a free Render instance. If the app doesn't respond immediately, please wait 30 seconds for the server to "wake up" from sleep mode._
 
